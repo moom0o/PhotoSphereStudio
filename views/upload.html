@@ -1,6 +1,7 @@
 <div style="text-align: center;"><h1>PhotoSphereStudio</h1>
     <p>I am not very good at CSS, so please submit a pull request if you are great at frontend development.</p>
     <p>This page will allow you to upload photo spheres to Google Maps after the idiots at Google removed their perfectly working StreetView app.</p>
+    <p><a href="https://github.com/moom0o/PhotoSphereStudio">Source Code</a></p>
         <p>Images must have the proper 360 degree file properties, you will need to figure out how to add this metadata. Google pixel photosphere photos work perfectly, I have yet to figure out how to get my DJI drone 360 photos working.</p>
         <p>Latitude and Longitude is not required if your photo already contains location data, however if it doesn't, then use <a href="https://www.latlong.net/">https://www.latlong.net/</a> to pinpoint coords.</p>
 
@@ -12,11 +13,11 @@
                        accept="image/png, image/jpeg">
                 <div class="form-control">
                     <label for="lat">Latitude</label>
-                    <input type="text" id="lat" name="lat" placeholder="Latitude coordinates" required />
+                    <input type="text" id="lat" name="lat" placeholder="Latitude coordinates" />
                 </div>
                 <div class="form-control">
                     <label for="long">Longitude</label>
-                    <input type="text" id="long" name="long" placeholder="Longitude coordinates" required />
+                    <input type="text" id="long" name="long" placeholder="Longitude coordinates" />
                 </div>
                 <input type="submit" value="Send" class="submit-btn" />
             </fieldset>
