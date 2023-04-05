@@ -35,7 +35,7 @@ app.use(
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/views/index.html')
 })
-app.get('/upload', function(req, res){
+app.get('/upload', function (req, res) {
     res.sendFile(__dirname + '/views/upload.html')
 })
 app.post('/upload', function (req, res) {
@@ -74,14 +74,9 @@ app.post('/upload', function (req, res) {
                             console.log(error) && res.status(500).send("Error with uploading file to uploadUrl");
                         } else {
                             //PART 3: Set metadata!
-                            const options = {
-                                'method': 'POST',
-                                'url': `https://streetviewpublish.googleapis.com/v1/photo?key=${apiKey}`,
-                                'headers': {
-                                    'Authorization': `Bearer ${key}`,
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
+                            let body;
+                            if (req.body["lat"] && req.body["long"]) {
+                                body = JSON.stringify({
                                     "uploadReference": {
                                         "uploadUrl": uploadUrl
                                     },
@@ -93,13 +88,32 @@ app.post('/upload', function (req, res) {
                                         "heading": 0
                                     }
                                 })
+                            } else {
+                                body = JSON.stringify({
+                                    "uploadReference": {
+                                        "uploadUrl": uploadUrl
+                                    },
+                                })
+                            }
 
+                            const options = {
+                                'method': 'POST',
+                                'url': `https://streetviewpublish.googleapis.com/v1/photo?key=${apiKey}`,
+                                'headers': {
+                                    'Authorization': `Bearer ${key}`,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: body
                             };
                             request(options, function (error, response) {
                                 if (error) {
                                     console.log(error) && res.status(500).send("Error with setting metadata of file");
                                 } else {
-                                    res.status(200).send(`Status: ${JSON.parse(response.body)["mapsPublishStatus"]}<br>Link: <a href="${JSON.parse(response.body)["shareLink"]}">${JSON.parse(response.body)["shareLink"]}</a><br>You may have to wait awhile after uploading for Google to process the image.<br><a href="/upload">Upload another?</a>`)
+                                    if (JSON.parse(response.body)["error"]) {
+                                        res.status(JSON.parse(response.body)["error"]["code"]).send(`Status: ${JSON.parse(response.body)["error"]["status"]}<br>Error message: ${JSON.parse(response.body)["error"]["message"]}</a><br>Try adding the latitude and longitude coordinates.<br><a href="/upload">Upload another?</a>`)
+                                    } else {
+                                        res.status(200).send(`Status: ${JSON.parse(response.body)["mapsPublishStatus"]}<br>Link: <a href="${JSON.parse(response.body)["shareLink"]}">${JSON.parse(response.body)["shareLink"]}</a><br>You may have to wait awhile after uploading for Google to process the image.<br><a href="/upload">Upload another?</a>`)
+                                    }
                                 }
                             });
                         }
@@ -119,7 +133,10 @@ app.get('/auth', function (req, res) {
     };
     request(options, function (error, response) {
         if (error) console.log(error) && res.send("Error: Check console");
-        res.cookie('oauth', JSON.parse(response.body)["access_token"], {maxAge: 900000, httpOnly: true});
+        res.cookie('oauth', JSON.parse(response.body)["access_token"], {
+            maxAge: JSON.parse(response.body)["expires_in"] * 1000,
+            httpOnly: true
+        });
         res.sendFile(__dirname + '/views/upload.html')
     });
 
