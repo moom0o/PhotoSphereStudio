@@ -5,7 +5,6 @@ const port = config.port;
 const openWebBrowser = config.openWebBrowser; // Set to false if running as a server
 
 // Doesn't matter what Google account holds these keys.
-const apiKey = config.apiKey; // Webmaster api key, must be gotten from Google photosphere api
 const clientId = config.clientId // Client ID from Google API page
 const clientSecret = config.clientSecret // Client Secret from Google API page
 
@@ -49,7 +48,7 @@ app.post('/upload', function (req, res) {
             // Part 1: Get uploadUrl
             const options = {
                 'method': 'POST',
-                'url': `https://streetviewpublish.googleapis.com/v1/photo:startUpload?key=${apiKey}`,
+                'url': `https://streetviewpublish.googleapis.com/v1/photo:startUpload`,
                 'headers': {
                     'Authorization': `Bearer ${key}`
                 }
@@ -98,7 +97,7 @@ app.post('/upload', function (req, res) {
 
                             const options = {
                                 'method': 'POST',
-                                'url': `https://streetviewpublish.googleapis.com/v1/photo?key=${apiKey}`,
+                                'url': `https://streetviewpublish.googleapis.com/v1/photo`,
                                 'headers': {
                                     'Authorization': `Bearer ${key}`,
                                     'Content-Type': 'application/json'
@@ -110,7 +109,7 @@ app.post('/upload', function (req, res) {
                                     console.log(error) && res.status(500).send("Error with setting metadata of file");
                                 } else {
                                     if (JSON.parse(response.body)["error"]) {
-                                        res.status(JSON.parse(response.body)["error"]["code"]).send(`Status: ${JSON.parse(response.body)["error"]["status"]}<br>Error message: ${JSON.parse(response.body)["error"]["message"]}</a><br>Try adding the latitude and longitude coordinates.<br><a href="/upload">Upload another?</a>`)
+                                        res.status(JSON.parse(response.body)["error"]["code"]).send(`Status: ${JSON.parse(response.body)["error"]["status"]}<br>Error message: ${JSON.parse(response.body)["error"]["message"]}</a><br><a href="/upload">Upload another?</a>`)
                                     } else {
                                         res.status(200).send(`Status: ${JSON.parse(response.body)["mapsPublishStatus"]}<br>Link: <a href="${JSON.parse(response.body)["shareLink"]}">${JSON.parse(response.body)["shareLink"]}</a><br>You may have to wait awhile after uploading for Google to process the image.<br><a href="/upload">Upload another?</a>`)
                                     }
