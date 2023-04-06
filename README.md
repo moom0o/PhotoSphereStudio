@@ -37,6 +37,3 @@ Head to the main credentials screen and click the pencil. (Edit OAuth Client) Yo
 4) For test users, add the email address of the account where you want to upload 360 photos.
 
 5) **Make sure to also copy the client ID into index.html**, after '&client_id=' and before '&scope', if needed, change the port and domain here as well.
-
-### API Key
-Head to the main credentials screen, click 'Create Credentials' and select 'API Key'. Wait a bit and you will be able to copy the API key into your config.json
