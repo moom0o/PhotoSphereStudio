@@ -43,7 +43,7 @@ app.use(favicon(__dirname + '/public/assets/icons/favicon.ico'));
 app.get('/', function (req, res) {
 
     res.render('pages/index', {
-        domain: domain,
+        domain: "map.winscloud.net",
         clientId: clientId
     });
 })
@@ -184,7 +184,7 @@ app.get('/auth', function (req, res) {
     const request = require('request');
     const options = {
         'method': 'POST',
-        'url': `https://www.googleapis.com/oauth2/v4/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&code=${req.query["code"]}&redirect_uri=http://${domain}/auth/&scope=https://www.googleapis.com/auth/streetviewpublish`,
+        'url': `https://www.googleapis.com/oauth2/v4/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&code=${req.query["code"]}&redirect_uri=https://${domain}/auth/&scope=https://www.googleapis.com/auth/streetviewpublish`,
         'headers': {}
     };
     request(options, function (error, response) {
