@@ -1,0 +1,36 @@
+<%- include('../partials/header'); %>
+
+<div class="column shadow-sm p-3 m-4 bg-dark-3 text-light">
+    <div align="left">
+
+        <div align="center">
+            <span class="material-symbols-outlined text-danger" style="font-size: 5vw;">
+                close
+            </span>
+
+            <p class="h1 text-danger">
+                <%= errorCode %>: <%= errorStatus %>
+            </p>
+
+            <p class="h3 text-danger">
+                <%= errorMessage %> 
+            </p>
+        </div>
+        
+        <div class="debugContainer">
+
+            <details>
+                <summary>Debug Information</summary>
+                <pre class="text-light"><code><%= response %></code></pre>
+            </details>
+        </div>
+
+        <div class="uploadButtonContainer">
+            <a href="/upload">
+                <button class="ripple">TRY AGAIN</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer'); %>

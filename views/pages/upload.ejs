@@ -1,0 +1,70 @@
+<%- include('../partials/header'); %>
+
+<div class="column shadow-sm p-3 m-4 bg-dark-3 text-light">
+    <div align="left">
+        <h1>Upload</h1>
+        <p>This page will allow you to upload photo spheres to Google Maps after the <i>idiots</i> at Google removed their perfectly working StreetView app.</p>
+        
+        <div class="alert alert-info" role="alert">
+            <span>Images <b>must</b> have the proper 360 degree file properties, you will need to figure out how to add this metadata. <b>Google Pixel photosphere photos work perfectly</b>, I have yet to figure out how to get my DJI drone 360 photos working.</span>
+        </div>
+
+        <div class="alert alert-warning" role="alert">
+            <span>Latitude and Longitude is <b>not required</b> if your photo already contains location data, however if it doesn't, you can use the map below to pinpoint your location</span>
+        </div>    
+
+            <form name="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <legend>Upload a 360 image</legend>
+                    <div class="file-upload">
+                        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger('click')">Add Image</button>
+                    
+                        <div class="image-upload-wrap">
+                            <input class="file-upload-input" type='file' id="file" name="file" onchange="readURL(this);" accept="image/png, image/jpeg" />
+                            <div class="drag-text">
+
+                                <div class="buttonText">
+                                    
+                                    <span class="material-symbols-outlined" style="font-size: 5vw;">
+                                        upload
+                                    </span>
+    
+                                    <h3>Drag and drop a file or select add Image</h3>
+
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                        <div class="file-upload-content">
+                            <img class="file-upload-image" src="" alt="Uploaded Image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="map" class="text-light">Map</label>
+                    <div id="map" class="leaflet-container" style="max-width: 100%; height: 500px"></div>
+                </div>
+                <div class="form-group">
+                    <label for="lat" class="text-light">Latitude</label>
+                    <input type="text" id="lat" name="lat" placeholder="Latitude coordinates" class="form-control" required />
+                </div>
+                <div class="form-control">
+                    <label for="long" class="text-light">Longitude</label>
+                    <input type="text" id="long" name="long" placeholder="Longitude coordinates" class="form-control" required />
+                </div>
+
+                <button type="submit" class="ripple">UPLOAD</button>
+            </form>
+    </div>
+</div>
+
+<script>
+    
+</script>
+
+<%- include('../partials/footer'); %>

@@ -1,8 +1,9 @@
 {
-  "apiKey": "AIzaXXXXX_XXXXXX_XXXXXXXXXXXXXXX_XXXXX",
-  "domain": "localhost",
-  "port": 7000,
-  "openWebBrowser": true,
-  "clientId": "XXXXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com",
-  "clientSecret": "XXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    "domain": "", 
+    "host": "localhost",
+    "port": 7000,
+    "openWebBrowser": true,
+    "clientId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com",
+    "clientSecret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 }
+  
