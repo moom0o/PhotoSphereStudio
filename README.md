@@ -12,8 +12,8 @@ The main reason why I created this is because Google Maps isn't a good replaceme
 If you want to try it out, there are publicly available instances:
 | **URL**                                        | **Country** | **Status** | **Hosted By** |
 |------------------------------------------------|-------------|------------|---------------|
-| [maps.moomoo.me](https://maps.moomoo.me)         | USA         | Up         | @moom0o       |
-| [map.winscloud.net](https://map.winscloud.net) | TH          | Up         | @WinsDominoes |
+| [maps.moomoo.me](https://maps.moomoo.me)         | 🇺🇸         | Up         | @moom0o       |
+| [map.winscloud.net](https://map.winscloud.net) | 🇹🇭          | Up         | @WinsDominoes |
 
 ## Quick start
 In order to get the Google api keys required for the oauth follow these steps:
