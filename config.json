@@ -1,5 +1,6 @@
 {
-  "domain": "localhost",
+  "domain": "", 
+  "host": "localhost",
   "port": 7000,
   "openWebBrowser": true,
   "clientId": "XXXXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com",
