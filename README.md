@@ -1,9 +1,20 @@
-# PhotoSphereStudio
+<div align=center>
+    <img src="public/assets/banner/github-banner.png">
+    <br /><br />
+    <p>Uploading 360° photos made easy</p>
+</div>
+
+# Overview
 Upload 360° photos to Google Maps without using Google's app.
 
 The main reason why I created this is because Google Maps isn't a good replacement of the former app. You are only able to upload 360 photos to specific places on the map. With this project, it is possible to upload them at any coordinates.
 
-A public instance is running at https://maps.moomoo.me/
+If you want to try it out, there are publicly available instances:
+| **URL**                                        | **Country** | **Status** | **Hosted By** |
+|------------------------------------------------|-------------|------------|---------------|
+| [map.moomoo.me](https://map.moomoo.me)         | USA         | Up         | @moom0o       |
+| [map.winscloud.net](https://map.winscloud.net) | TH          | Up         | @WinsDominoes |
+
 ## Quick start
 In order to get the Google api keys required for the oauth follow these steps:
 
@@ -37,3 +48,48 @@ Head to the main credentials screen and click the pencil. (Edit OAuth Client) Yo
 4) For test users, add the email address of the account where you want to upload 360 photos.
 
 5) **Make sure to also copy the client ID into index.html**, after '&client_id=' and before '&scope', if needed, change the port and domain here as well.
+
+### Config File
+There are many options in the config file that might confuse you, so here's a simple guide (I think?) to help you get through it.
+
+| **Keys**         | **Default values**         | **Usage**                                                                                                                                      |
+|------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| `https`          | `false` (boolean)          | This is an option whether if you want to enable https or not, this uses boolean values. `false` = http:// and `true` = https://                |
+| `host`           | `localhost` (string)       | Your host or domain, if you are hosting on a local machine, set this to `localhost`, if you are hosting this publicly, set it to your domain.  |
+| `port`           | `7000` (integer) or `null` | Your port, if are running this as a public instance, set this to `null`                                                                        |
+| `openWebBrowser` | `true` (boolean)           | This option will open a browser window to PhotoSphereStudio's running instance, set this to `false` if you are running this on a server,       |
+| `clientId`       | string                     | Paste your Google OAuth Client ID here, check the previous steps on how to get it.                                                             |
+| `clientSecret`   | string                     | Paste your Google OAuth Client Secret ID here, check the previous steps on how to get it.                                                      |
+
+**INFO: Your authorized JavaScript origins and authorized redirect URIs should be the same as the one you have set in your config file.**
+
+**Scenario 1 - Public Instance**
+
+This example is for those who are hosting a public instance, your https, host and port would look something like this. Change `map.winscloud.net` to your domain. 
+```
+{
+  "https": true,
+  "host": "map.winscloud.net", 
+  "port": null
+}
+```
+Your **authorized JavaScript origin** would be: `https://map.winscloud.net`
+
+Your **authorized redirect URIs** would be: `https://map.winscloud.net/auth/` (don't forget the slash after `auth`)
+
+**Scenario 2 - Private Instance**
+
+This example is for those who are running PhotoSphereStudio on a local machine, your https, host and port would look something like this. 
+```
+{
+    "https": false,
+    "host": "localhost",
+    "port" 7000
+}
+```
+Your **authorized JavaScript origin** would be: `http://localhost:7000`
+
+Your **authorized redirect URIs** would be: `http://localhost:7000/auth/` (don't forget the slash after `auth`)
+
+## Support
+If you have any questions about how to set this up or about the source code, feel free to ask either **moom0o** (moo#0529 on Discord) or **WinsDominoes** (Win#7206 on Discord). 

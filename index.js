@@ -1,17 +1,23 @@
 const config = require('./config.json')
 
-const domain = config.domain;
 const host = config.host;
 const port = config.port;
 const openWebBrowser = config.openWebBrowser; // Set to false if running as a server
 
 let full_url = "";
-const https = config.https;
-if(https) {
-    full_url = "https://" + domain + ":" + port;
+let protocol = "";
+if(config.https) {
+    protocol = "https://"
 } else {
-    full_url = "http://" + domain + ":" + port;
+    protocol = "http://"
 }
+
+if(port) {
+    full_url = protocol + host + ":" + port
+} else {
+    full_url = protocol + host
+}
+
 
 console.log("Server running on: " + full_url);
 
