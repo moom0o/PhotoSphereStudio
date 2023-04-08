@@ -12,7 +12,7 @@ The main reason why I created this is because Google Maps isn't a good replaceme
 If you want to try it out, there are publicly available instances:
 | **URL**                                        | **Country** | **Status** | **Hosted By** |
 |------------------------------------------------|-------------|------------|---------------|
-| [map.moomoo.me](https://map.moomoo.me)         | USA         | Up         | @moom0o       |
+| [maps.moomoo.me](https://maps.moomoo.me)         | USA         | Up         | @moom0o       |
 | [map.winscloud.net](https://map.winscloud.net) | TH          | Up         | @WinsDominoes |
 
 ## Quick start
@@ -65,17 +65,19 @@ There are many options in the config file that might confuse you, so here's a si
 
 **Scenario 1 - Public Instance**
 
-This example is for those who are hosting a public instance, your https, host and port would look something like this. Change `map.winscloud.net` to your domain. 
+This example is for those who are hosting a public instance, your https, host and port would look something like this. Change `maps.moomoo.me` to your domain.
+
+You must use a nginx reverse proxy pointing to localhost:7000 for this to work.
 ```
 {
   "https": true,
-  "host": "map.winscloud.net", 
-  "port": null
+  "host": "maps.moomoo.me", 
+  "port": 7000
 }
 ```
-Your **authorized JavaScript origin** would be: `https://map.winscloud.net`
+Your **authorized JavaScript origin** would be: `https://maps.moomoo.me`
 
-Your **authorized redirect URIs** would be: `https://map.winscloud.net/auth/` (don't forget the slash after `auth`)
+Your **authorized redirect URIs** would be: `https://maps.moomoo.me/auth/` (don't forget the slash after `auth`)
 
 **Scenario 2 - Private Instance**
 
