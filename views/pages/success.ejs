@@ -1,0 +1,44 @@
+<%- include('../partials/header'); %>
+
+<div class="column shadow-sm p-3 m-4 bg-dark-3 text-light">
+    <div align="left">
+
+        <div align="center">
+            <span class="material-symbols-outlined text-success" style="font-size: 5vw;">
+                done
+            </span>
+
+            <p class="h1 text-success">
+                <%= status %>
+            </p>
+
+            <p class="h3 text-success">
+                Your 360 image has been published to Google Street View! Click on the link below to view the image!
+            </p>
+
+            <div class="viewContainer">
+                <span>Link: </span><a href="<%= shareLink %>"><%= shareLink %></a>
+            </div>
+
+            <div class="alert alert-info" role="alert">
+                <span>You may have to wait awhile after uploading for Google to process the image.</span>
+            </div> 
+        </div>
+        
+        <div class="debugContainer">
+
+            <details>
+                <summary>Debug Information</summary>
+                <pre class="text-light"><code><%= response %></code></pre>
+            </details>
+        </div>
+
+        <div class="uploadButtonContainer">
+            <a href="/upload">
+                <button class="ripple">UPLOAD ANOTHER?</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer'); %>
