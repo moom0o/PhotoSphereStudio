@@ -12,7 +12,7 @@ if(config.https) {
     protocol = "http://"
 }
 
-if(port) {
+if(port && !config.https) {
     full_url = protocol + host + ":" + port
 } else {
     full_url = protocol + host
@@ -204,11 +204,16 @@ app.get('/auth', function (req, res) {
     };
     request(options, function (error, response) {
         if (error) console.log(error) && res.send("Error: Check console");
-        res.cookie('oauth', JSON.parse(response.body)["access_token"], {
-            maxAge: JSON.parse(response.body)["expires_in"] * 1000,
-            httpOnly: true
-        });
-        res.render('pages/upload')
+        let body = JSON.parse(response.body)
+        if(body["error"] || !body["access_token"]){
+            res.redirect('/')
+        } else {
+            res.cookie('oauth', JSON.parse(response.body)["access_token"], {
+                maxAge: JSON.parse(response.body)["expires_in"] * 1000,
+                httpOnly: true
+            });
+            res.render('pages/upload')
+        }
     });
 
 })
