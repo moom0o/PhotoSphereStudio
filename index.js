@@ -5,6 +5,16 @@ const host = config.host;
 const port = config.port;
 const openWebBrowser = config.openWebBrowser; // Set to false if running as a server
 
+let full_url = "";
+const https = config.https;
+if(https) {
+    full_url = "https://" + domain + ":" + port;
+} else {
+    full_url = "http://" + domain + ":" + port;
+}
+
+console.log("Server running on: " + full_url);
+
 // Doesn't matter what Google account holds these keys.
 const clientId = config.clientId // Client ID from Google API page
 const clientSecret = config.clientSecret // Client Secret from Google API page
@@ -13,7 +23,7 @@ const clientSecret = config.clientSecret // Client Secret from Google API page
 const open = require('open');
 if (openWebBrowser) {
     (async () => {
-        await open(`http://${host}:${port}/`);
+        await open(full_url);
     })();
 }
 
@@ -41,9 +51,8 @@ app.set('view engine', 'ejs');
 app.use(favicon(__dirname + '/public/assets/icons/favicon.ico'));
 
 app.get('/', function (req, res) {
-
     res.render('pages/index', {
-        domain: "map.winscloud.net",
+        full_url: full_url,
         clientId: clientId
     });
 })
@@ -184,7 +193,7 @@ app.get('/auth', function (req, res) {
     const request = require('request');
     const options = {
         'method': 'POST',
-        'url': `https://www.googleapis.com/oauth2/v4/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&code=${req.query["code"]}&redirect_uri=https://${domain}/auth/&scope=https://www.googleapis.com/auth/streetviewpublish`,
+        'url': `https://www.googleapis.com/oauth2/v4/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&code=${req.query["code"]}&redirect_uri=${full_url}/auth/&scope=https://www.googleapis.com/auth/streetviewpublish`,
         'headers': {}
     };
     request(options, function (error, response) {
