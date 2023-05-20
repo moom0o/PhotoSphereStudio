@@ -24,7 +24,7 @@ function readURL(input) {
           var allMetaDataSpan = document.getElementById('allMetaDataSpan');
           //   allMetaDataSpan.innerHTML = JSON.stringify(allMetaData, null, '\t');
           var lat = convertDMSToDD(EXIF.getTag(this, 'GPSLatitude'));
-          var long = convertDMSToDD(EXIF.getTag(this, 'GPSLongitude'));
+          var long = -convertDMSToDD(EXIF.getTag(this, 'GPSLongitude')); // Negative because it's west longitude
           $('#lat').val(lat);
           $('#long').val(long);
           console.log(`lat: ${lat}, long: ${long}`);
