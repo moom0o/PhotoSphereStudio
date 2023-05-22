@@ -1,5 +1,9 @@
-function convertDMSToDD([degrees, minutes, seconds]) {
-  return degrees + minutes / 60 + seconds / 3600;
+function convertDMSToDD([degrees, minutes, seconds], ref) {
+  decimal_degrees = degrees + minutes / 60 + seconds / 3600;
+  if (ref == 'S' || ref == 'W') {
+    decimal_degrees = -decimal_degrees;
+  }
+  return decimal_degrees;
 }
 
 function readURL(input) {
@@ -23,8 +27,14 @@ function readURL(input) {
           var allMetaData = EXIF.getAllTags(this);
           var allMetaDataSpan = document.getElementById('allMetaDataSpan');
           //   allMetaDataSpan.innerHTML = JSON.stringify(allMetaData, null, '\t');
-          var lat = convertDMSToDD(EXIF.getTag(this, 'GPSLatitude'));
-          var long = -convertDMSToDD(EXIF.getTag(this, 'GPSLongitude')); // Negative because it's west longitude
+          var lat = convertDMSToDD(
+            EXIF.getTag(this, 'GPSLatitude'),
+            EXIF.getTag(this, 'GPSLatitudeRef')
+          );
+          var long = convertDMSToDD(
+            EXIF.getTag(this, 'GPSLongitude'),
+            EXIF.getTag(this, 'GPSLongitudeRef')
+          );
           $('#lat').val(lat);
           $('#long').val(long);
           console.log(`lat: ${lat}, long: ${long}`);
