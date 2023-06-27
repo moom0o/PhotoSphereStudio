@@ -1,6 +1,6 @@
 {
   "https": false,
-  "host": "localhost", 
+  "host": "localhost",
   "port": 7000,
   "openWebBrowser": false,
   "clientId": "XXXXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com",

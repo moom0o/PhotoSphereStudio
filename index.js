@@ -6,13 +6,13 @@ const openWebBrowser = config.openWebBrowser; // Set to false if running as a se
 
 let full_url = "";
 let protocol = "";
-if(config.https) {
+if (config.https) {
     protocol = "https://"
 } else {
     protocol = "http://"
 }
 
-if(port && !config.https) {
+if (port && !config.https) {
     full_url = protocol + host + ":" + port
 } else {
     full_url = protocol + host
@@ -59,11 +59,12 @@ app.use(favicon(__dirname + '/public/assets/icons/favicon.ico'));
 app.get('/', function (req, res) {
     res.render('pages/index', {
         full_url: full_url,
-        clientId: clientId
+        clientId: clientId,
+        domain: config.host
     });
 })
 
-app.get('/upload', function(req, res){
+app.get('/upload', function (req, res) {
     res.render('pages/upload');
 })
 
@@ -116,7 +117,7 @@ app.post('/upload', function (req, res) {
                     };
                     request(options, function (error) {
                         if (error) {
-                            console.log(error) 
+                            console.log(error)
 
                             res.status(500).render('pages/error', {
                                 errorCode: 500,
@@ -175,9 +176,9 @@ app.post('/upload', function (req, res) {
                                             errorCode: JSON.parse(response.body)["error"]["code"],
                                             errorStatus: JSON.parse(response.body)["error"]["status"],
                                             errorMessage: JSON.parse(response.body)["error"]["message"],
-                                            response: JSON.stringify(JSON.parse(response.body), null, 4), 
+                                            response: JSON.stringify(JSON.parse(response.body), null, 4),
                                         });
-                                    } else {                                    
+                                    } else {
                                         let shareLink = JSON.parse(response.body)["shareLink"]
                                         res.status(200).render('pages/success', {
                                             status: JSON.parse(response.body)["mapsPublishStatus"],
@@ -205,7 +206,7 @@ app.get('/auth', function (req, res) {
     request(options, function (error, response) {
         if (error) console.log(error) && res.send("Error: Check console");
         let body = JSON.parse(response.body)
-        if(body["error"] || !body["access_token"]){
+        if (body["error"] || !body["access_token"]) {
             res.redirect('/')
         } else {
             res.cookie('oauth', JSON.parse(response.body)["access_token"], {
