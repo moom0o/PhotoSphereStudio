@@ -66,8 +66,7 @@ and copy that to your config.json.
 There are many options in the config file that might confuse you, so here's a simple guide (I think?) to help you get
 through it.
 
-| **Keys**         | **Default values**         | **
-Usage**                                                                                                                                      |
+| **Keys**         | **Default values**         | **Usage**                                                                                                                                      |
 |------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | `https`          | `false` (boolean)          | This is an option whether if you want to enable https or not, this uses boolean values. `false` = http:// and `true` = https://                |
 | `host`           | `localhost` (string)       | Your host or domain, if you are hosting on a local machine, set this to `localhost`, if you are hosting this publicly, set it to your domain.  |
