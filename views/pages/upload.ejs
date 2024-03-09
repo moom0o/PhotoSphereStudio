@@ -7,12 +7,15 @@
             their perfectly working StreetView app.</p>
 
         <div class="alert alert-info" role="alert">
-            <span>Images <b>must</b> have the proper 360 degree file properties, you will need to figure out how to add this metadata. <b>Google Pixel photosphere photos work perfectly</b>, I have yet to figure out how to get my DJI drone 360 photos working.</span>
+            <span><b>Use the Hugin program to export DJI Drone PhotoSpheres.</b> Google has <b>removed</b> PhotoSphere from Pixel Camera 9.1 and later, use <a href="https://www.apkmirror.com/apk/google-inc/camera/camera-9-0-115-561695573-37-release/">APKMirror</a> to download older versions!</span>
         </div>
 
         <div class="alert alert-warning" role="alert">
             <span>Latitude and Longitude is <b>not required</b> if your photo already contains location data, however if it doesn't, you can use the map below to pinpoint your location</span>
         </div>
+
+        <div class="alert alert-warning" role="alert">
+            <span>If your image doesn't contain required metadata, add it yourself with exifdata. .\exiftool.exe -ProjectionType=equirectangular -UsePanoramaViewer=true file.jpeg</span>
 
         <form name="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
             <div class="form-group">
