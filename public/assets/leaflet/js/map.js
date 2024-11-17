@@ -31,7 +31,7 @@ map.on('click', (event) => {
         map.removeLayer(marker);
     }
 
-    marker = L.marker([event.latlng.lat, event.latlng.lng], {icon: defaultIcon}).addTo(map);
+    marker = L.marker([event.latlng.lat, event.latlng.lng]).addTo(map);
 
     document.getElementById('lat').value = event.latlng.lat;
     document.getElementById('long').value = event.latlng.lng;

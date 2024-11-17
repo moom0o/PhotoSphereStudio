@@ -11,11 +11,12 @@
         </div>
 
         <div class="alert alert-warning" role="alert">
-            <span>Latitude and Longitude is <b>not required</b> if your photo already contains location data, however if it doesn't, you can use the map below to pinpoint your location</span>
+            <span>Latitude and Longitude is automatically filled in if your photo already contains location data, however if it doesn't or you wish to change the location, you can use the map below to pinpoint your location</span>
         </div>
 
         <div class="alert alert-warning" role="alert">
             <span>If your image doesn't contain required metadata, add it yourself with exifdata. .\exiftool.exe -ProjectionType=equirectangular -UsePanoramaViewer=true file.jpeg</span>
+        </div>
 
         <form name="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
             <div class="form-group">
