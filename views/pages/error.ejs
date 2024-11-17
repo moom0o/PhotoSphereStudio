@@ -12,9 +12,20 @@
                 <%= errorCode %>: <%= errorStatus %>
             </p>
 
-            <p class="h3 text-danger">
+            <p class="h2 text-danger">
                 <%= errorMessage %>
-                If you get a NOT_FOUND error, try converting your image to JPEG.
+            </p>
+            <p class="h3 text">
+                <b>Make sure your image is JPEG and you haven't cropped/downsized the photo.</b>
+            </p>
+            <p class="h5 text">
+                If your image is JPEG and the original size try these steps:
+<br>
+                1) Download <a href="https://exiftool.org/">exiftool</a> and run <code>.\exiftool.exe -UsePanoramaViewer=true -ProjectionType=equirectangular .\image.jpg</code> then try uploading
+<br>
+                2) If that STILL hasn't fixed your issue, make sure you haven't downsized your image, otherwise if you did you will need to run
+<br>
+                <code>.\exiftool.exe -CroppedAreaImageWidthPixels=XXXX -CroppedAreaImageHeightPixels=YYYY -FullPanoWidthPixels=XXXX -FullPanoHeightPixels=YYYY .\image.jpg</code> with your image dimensions.
             </p>
         </div>
 
