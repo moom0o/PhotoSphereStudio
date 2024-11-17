@@ -51,6 +51,9 @@ function readURL(input) {
 }
 
 function removeUpload() {
+    if (marker !== null) {
+        map.removeLayer(marker);
+    }
     $('.file-upload-input').replaceWith($('.file-upload-input').clone());
     $('.file-upload-content').hide();
     $('.image-upload-wrap').show();
