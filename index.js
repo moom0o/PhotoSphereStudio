@@ -72,6 +72,9 @@ app.post('/upload', function (req, res) {
 
     let latitude = req.body["lat"];
     let longitude = req.body["long"];
+    let heading = req.body["head"];
+    let placespot = req.body["place"];
+
 
     let key = req.cookies["oauth"]
     if (!key) {
@@ -130,18 +133,37 @@ app.post('/upload', function (req, res) {
                             //PART 3: Set metadata!
                             let body;
                             if (req.body["lat"] && req.body["long"]) {
-                                body = JSON.stringify({
-                                    "uploadReference": {
-                                        "uploadUrl": uploadUrl
-                                    },
-                                    "pose": {
-                                        "latLngPair": {
-                                            "latitude": latitude,
-                                            "longitude": longitude
+                                if(placespot && placespot.length > 0){
+                                    body = JSON.stringify({
+                                        "uploadReference": {
+                                            "uploadUrl": uploadUrl
                                         },
-                                        "heading": 0
-                                    }
-                                })
+                                        "pose": {
+                                            "latLngPair": {
+                                                "latitude": latitude,
+                                                "longitude": longitude
+                                            },
+                                            "heading": heading
+                                        },
+                                        "places": {
+                                            "placeId": placespot
+                                        }
+                                    })
+                                } else {
+                                    body = JSON.stringify({
+                                        "uploadReference": {
+                                            "uploadUrl": uploadUrl
+                                        },
+                                        "pose": {
+                                            "latLngPair": {
+                                                "latitude": latitude,
+                                                "longitude": longitude
+                                            },
+                                            "heading": heading
+                                        }
+                                    })
+                                }
+
                             } else {
                                 body = JSON.stringify({
                                     "uploadReference": {

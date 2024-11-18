@@ -23,10 +23,18 @@ function readURL(input) {
 
             // Render thumbnail.
             img.onload = function () {
+                ExifReader.load(input.files[0], {async: false}).then(function (tags) {
+                    if(tags["PoseHeadingDegrees"]){
+                        $('#pose').val(tags["PoseHeadingDegrees"].value);
+                    } else {
+                        $('#pose').val(0);
+                    }
+
+                }).catch(function (error) {
+                    $('#pose').val(0);
+                    console.log(error)
+                })
                 EXIF.getData(img, function () {
-                    var allMetaData = EXIF.getAllTags(this);
-                    var allMetaDataSpan = document.getElementById('allMetaDataSpan');
-                    //   allMetaDataSpan.innerHTML = JSON.stringify(allMetaData, null, '\t');
                     var lat = convertDMSToDD(
                         EXIF.getTag(this, 'GPSLatitude'),
                         EXIF.getTag(this, 'GPSLatitudeRef')

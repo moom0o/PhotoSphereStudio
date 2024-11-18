@@ -64,6 +64,29 @@
                 <input type="text" id="long" name="long" placeholder="Longitude coordinates" class="form-control"
                        required/>
             </div>
+            <div class="advancedContainer">
+
+                <details>
+                    <summary>Advanced Options</summary>
+                    <pre>
+                    <div class="form-group">
+                        <label for="pose" class="text-light">Heading/Pose</label>
+                        <input type="text" id="pose" name="head"
+                               placeholder="Degrees from north that the front of the photo was taken from (0-360)"
+                               class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="place" class="text-light">Associate Photo with Place (OPTIONAL)</label>
+                        <input type="text" id="place" name="place"
+                               placeholder="PlaceId of assigned place (Invalid PlaceId error? Try a different place.)"
+                               class="form-control" />
+                    </div>
+                    <p>
+                        Find the placeId of your place <a href="https://geo-devrel-javascript-samples.web.app/samples/places-placeid-finder/app/dist/">here</a>. (Make sure to search your place, it will not show id by clicking the place)
+                    </p>
+                    </pre>
+                </details>
+            </div>
 
             <button type="submit" class="ripple">UPLOAD</button>
         </form>
