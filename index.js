@@ -4,6 +4,15 @@ const host = config.host;
 const port = config.port;
 const openWebBrowser = config.openWebBrowser; // Set to false if running as a server
 
+const sqlite3 = require('sqlite3');
+const db = new sqlite3.Database('published.db');
+db.run("CREATE TABLE IF NOT EXISTS points (url TEXT, lat LONG, long LONG, UNIQUE(url))");
+// Prevent corruption
+db.run('PRAGMA synchronous=FULL')
+db.run('PRAGMA count_changes=OFF')
+db.run('PRAGMA journal_mode=DELETE')
+db.run('PRAGMA temp_store=DEFAULT')
+
 let full_url = "";
 let protocol = "";
 if (config.https) {
@@ -74,7 +83,7 @@ app.post('/upload', function (req, res) {
     let longitude = req.body["long"];
     let heading = req.body["head"];
     let placespot = req.body["place"];
-
+    let publish = req.body["publish"]
 
     let key = req.cookies["oauth"]
     if (!key) {
@@ -202,6 +211,9 @@ app.post('/upload', function (req, res) {
                                         });
                                     } else {
                                         let shareLink = JSON.parse(response.body)["shareLink"]
+                                        if(publish){
+                                            write(shareLink, latitude, longitude)
+                                        }
                                         res.status(200).render('pages/success', {
                                             status: JSON.parse(response.body)["mapsPublishStatus"],
                                             shareLink: shareLink,
@@ -241,4 +253,30 @@ app.get('/auth', function (req, res) {
 
 })
 
+app.get('/list', function (req,res){
+    read(function (data) {
+        res.send(data);
+    });
+
+})
+function write(url, lat, long) {
+    if (url && url !== "undefined") {
+        db.serialize(function () {
+            let stmt = db.prepare(`INSERT OR IGNORE INTO points (url, lat, long) VALUES (?,?,?)`);
+            stmt.run(url, lat, long);
+            stmt.finalize();
+        });
+    }
+}
+
+function read(callback) {
+    db.all(`SELECT * FROM points;`, function (err, data) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(data)
+            callback(data)
+        }
+    })
+}
 app.listen(port)
