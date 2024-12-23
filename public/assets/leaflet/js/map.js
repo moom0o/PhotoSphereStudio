@@ -2,6 +2,7 @@
 let mapOptions = {
     center: [41.875728, -87.626609],
     zoom: 4,
+    preferCanvas: true
 }
 
 var defaultIcon = L.icon({
@@ -41,7 +42,8 @@ let camIcon = L.icon({
 });
 getJSON("/list").then(data => {
     data.forEach(b => {
-        L.marker([b.lat, b.long], {icon: camIcon}).addTo(map).on('click', function(evt) {
+        //use CircleMarker when it starts lagging // , {icon: camIcon}
+        L.circleMarker([b.lat, b.long]).addTo(map).on('click', function(evt) {
             window.open(b.url, '_blank');
         });
     })
@@ -51,11 +53,12 @@ getJSON("/list").then(data => {
 
 // Marker
 let marker = null;
+let marker2 = null
 map.on('click', (event) => {
     if(!document.getElementById('lat')){
         return
     }
-    if (marker !== null) {
+    if (marker !== null || marker2 !== null) {
         map.removeLayer(marker);
     }
 
