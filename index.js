@@ -77,6 +77,14 @@ app.get('/upload', function (req, res) {
     res.render('pages/upload');
 })
 
+app.get(`/donate`, function (req, res) {
+    res.render('pages/donate');
+})
+
+app.get(`/privacy`, function (req, res) {
+    res.render('pages/privacy');
+})
+
 app.post('/upload', function (req, res) {
 
     let latitude = req.body["lat"];
@@ -274,7 +282,6 @@ function read(callback) {
         if (err) {
             console.log(err)
         } else {
-            console.log(data)
             callback(data)
         }
     })

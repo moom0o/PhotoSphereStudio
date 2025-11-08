@@ -51,6 +51,23 @@ form, input, label, p {
     transition: background 0s;
 }
 
+/* Ripple effect */
+.donate {
+    background-position: center;
+    transition: background 0.8s;
+    background-color: #2eff00;
+}
+
+.donate:hover {
+    background: #00ff9b radial-gradient(circle, transparent 1%, #00ff9b 1%) center/15000%;
+}
+
+.donate:active {
+    background-color: #00ff93;
+    background-size: 100%;
+    transition: background 0s;
+}
+
 /* DRAG AND DROP */
 .file-upload {
     width: 100%;
@@ -165,4 +182,14 @@ form, input, label, p {
     height: 25px;
     width: 25px;
     background-color: #eee;
+}
+
+.map-text {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: sans-serif;
+    color: black;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
 }

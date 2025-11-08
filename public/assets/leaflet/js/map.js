@@ -41,6 +41,17 @@ let camIcon = L.icon({
     iconAnchor:   [16, 28], // point of the icon which will correspond to marker's location
 });
 getJSON("/list").then(data => {
+    const textControl = L.control({ position: 'topright' });
+
+    textControl.onAdd = function () {
+        const div = L.DomUtil.create('div', 'map-text');
+        div.innerHTML = `<h3>${data.length} total images</h3>`;
+        return div;
+    };
+
+    textControl.addTo(map);
+
+
     data.forEach(b => {
         //use CircleMarker when it starts lagging // , {icon: camIcon}
         L.circleMarker([b.lat, b.long]).addTo(map).on('click', function(evt) {
