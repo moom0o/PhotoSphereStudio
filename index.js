@@ -85,6 +85,10 @@ app.get(`/privacy`, function (req, res) {
     res.render('pages/privacy');
 })
 
+app.get(`/tos`, function (req, res) {
+    res.render('pages/tos');
+})
+
 app.post('/upload', function (req, res) {
 
     let latitude = req.body["lat"];
