@@ -17,8 +17,10 @@
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "open": "^8.4.0",
+    "puppeteer": "^24.29.1",
     "request": "^2.88.2",
     "serve-favicon": "^2.5.0",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "unirest": "^0.6.0"
   }
 }
