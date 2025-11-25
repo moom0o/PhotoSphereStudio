@@ -224,7 +224,7 @@ app.post('/upload', function (req, res) {
                                     } else {
                                         let shareLink = JSON.parse(response.body)["shareLink"]
                                         if(publish){
-                                            write(shareLink, latitude, longitude)
+                                            write(shareLink, latitude, longitude, req.files.file.data)
                                         }
                                         res.status(200).render('pages/success', {
                                             status: JSON.parse(response.body)["mapsPublishStatus"],
@@ -271,12 +271,16 @@ app.get('/list', function (req,res){
     });
 
 })
-function write(url, lat, long) {
+const fs = require('fs');
+function write(url, lat, long, file) {
     if (url && url !== "undefined") {
         db.serialize(function () {
-            let stmt = db.prepare(`INSERT OR IGNORE INTO points (url, lat, long) VALUES (?,?,?)`);
-            stmt.run(url, lat, long);
+            let stmt = db.prepare(`INSERT OR IGNORE INTO points (url, lat, long, time) VALUES (?,?,?, ?)`);
+            stmt.run(url, lat, long, new Date().getTime());
             stmt.finalize();
+            db.get(`SELECT seq FROM sqlite_sequence WHERE name="points";`, function (err, result) {
+                fs.promises.writeFile(`./backup/${Number(result["seq"])}.jpeg`, file);
+            })
         });
     }
 }
