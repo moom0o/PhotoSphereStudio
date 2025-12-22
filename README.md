@@ -5,6 +5,10 @@
 </div>
 
 # Overview
+![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-Middleware-000000?style=for-the-badge&logo=express&logoColor=white)
+![Google Cloud](https://img.shields.io/badge/Google_Cloud-Street_View_API-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)
+![OAuth 2.0](https://img.shields.io/badge/Security-OAuth_2.0-red?style=for-the-badge&logo=openid&logoColor=white)
 
 Upload 360° photos to Google Maps without using Google's app.
 
@@ -15,8 +19,44 @@ If you want to try it out, there are publicly available instances:
 | **URL** | **Country** | **Status** | **Hosted By** |
 |------------------------------------------------|-------------|------------|---------------|
 | [maps.moomoo.me](https://maps.moomoo.me) | 🇬🇧 | Up | @moom0o |
-| [map.winscloud.net](https://map.winscloud.net) | 🇹🇭 | Down | @WinsDominoes |
 
+```mermaid
+graph TD
+    subgraph "Auth"
+    User([User]) -->|Click Sign In| Google[Google Login Page]
+    Google -->|Redirect| ServerAuth[Exchange Code for Token]
+    ServerAuth -->|Set HTTP-Only Cookie| Session([User Logged In])
+    end
+
+    subgraph "Upload"
+    Session -->|POST /upload| CheckCookie{Cookie Valid?}
+    
+    CheckCookie --No--> Redirect[/Redirect to Home/]
+    CheckCookie --Yes--> CheckFile{File Attached?}
+    
+    CheckFile --No--> Err400[400: Missing File]
+    CheckFile --Yes--> ExtAPI[POST startUpload]
+    
+    ExtAPI --Error--> Err500[500: Server Error]
+    ExtAPI --Success--> UploadBin[POST Image File to Google]
+    
+    UploadBin --> MetaCheck{Metadata in Body?}
+    end
+
+    subgraph "Finalize"
+    MetaCheck --Yes--> WithMeta[Add Metadata]
+    MetaCheck --No--> NoMeta[Use Default Meta]
+    
+    WithMeta & NoMeta --> Publish[POST photo endpoint]
+    
+    Publish --> Extract[Extract ShareLink]
+    Extract --> DBCheck{Save to DB?}
+    
+    DBCheck --Yes--> DB[(SQLite DB)]
+    DB --> Final([200 OK + ShareLink])
+    DBCheck --No--> Final
+    end
+```
 ## Quick start
 
 In order to get the Google api keys required for the oauth follow these steps:
@@ -138,5 +178,4 @@ node index.js
 
 ## Support
 
-If you have any questions about how to set this up or about the source code, feel free to ask either **moom0o** (
-moo#0529 on Discord) or **WinsDominoes** (Win#7206 on Discord).
+If you have any questions about how to set this up or about the source code, feel free to create a issue or pull request.
