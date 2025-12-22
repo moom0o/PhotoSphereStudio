@@ -177,8 +177,8 @@ node index.js
 ```
 
 ## Credits
-* **Backend & Architecture:** [moom0o](@moom0o) - *OAuth flow, API Design, Database, Google Cloud API integration. Client-Side interactions.*
-* **Frontend & UI/UX:** [Win](@WinsDominoes) - *Visual design, CSS*
+* **Backend & Architecture:** [moom0o](https://github.com/moom0o) - *OAuth flow, API Design, Database, Google Cloud API integration. Client-Side interactions.*
+* **UI/UX:** [Win](https://github.com/WinsDominoes) - *Visual design, CSS*
 
 ## Support
 If you have any questions about how to set this up or about the source code, feel free to create a issue or pull request.
