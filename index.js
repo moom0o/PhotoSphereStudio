@@ -6,7 +6,7 @@ const openWebBrowser = config.openWebBrowser; // Set to false if running as a se
 
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('published.db');
-db.run("CREATE TABLE IF NOT EXISTS points (url TEXT, lat LONG, long LONG, UNIQUE(url))");
+db.run("CREATE TABLE IF NOT EXISTS points (url TEXT, lat LONG, long LONG, time LONG, UNIQUE(url))");
 // Prevent corruption
 db.run('PRAGMA synchronous=FULL')
 db.run('PRAGMA count_changes=OFF')
