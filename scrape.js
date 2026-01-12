@@ -64,6 +64,7 @@ async function processList() {
     const aliveUrls = [];
     const deadUrls = [];
     const taoUrls = [];
+    let links = ""
 
     for (const item of urlsToProcess) {
         const realUrl = await findMetadataRequest(item.url);
@@ -72,6 +73,10 @@ async function processList() {
             var req = unirest('GET', realUrl)
                 .end(function (res) {
                     if (res.error) throw new Error(res.error);
+                    let link = JSON.parse(res.body.replace(")]}'", ""))[1][0][17][0]
+                    links = links + `${link} ${item.id}` + "\n"
+                    fs.writeFileSync('downloads.txt', links);
+
                     // Removing tao's stupid photospheres, constantly spamming the website with stupid pictures
                     if(res.raw_body.includes("Táo TV")){
                         taoUrls.push(item);
@@ -113,5 +118,6 @@ async function processList() {
             console.log(`\nCould not capture a metadata request from that page.`);
         }
     }
+    console.log(links)
     console.log(`\nProcess complete. Found ${aliveUrls.length} live URLs.`);
 }

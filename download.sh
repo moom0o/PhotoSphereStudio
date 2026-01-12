@@ -1,0 +1,1 @@
+cat downloads.txt | parallel -j 50 --workdir $PWD --gnu "bash ./grabber.sh {}"
