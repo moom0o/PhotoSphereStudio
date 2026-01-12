@@ -73,9 +73,6 @@ async function processList() {
             var req = unirest('GET', realUrl)
                 .end(function (res) {
                     if (res.error) throw new Error(res.error);
-                    let link = JSON.parse(res.body.replace(")]}'", ""))[1][0][17][0]
-                    links = links + `${link} ${item.id}` + "\n"
-                    fs.writeFileSync('downloads.txt', links);
 
                     // Removing tao's stupid photospheres, constantly spamming the website with stupid pictures
                     if(res.raw_body.includes("Táo TV")){
@@ -108,6 +105,10 @@ async function processList() {
                         } catch (err) {
                             console.error('Error writing to file:', err);
                         }
+                        let link = JSON.parse(res.body.replace(")]}'", ""))[1][0][17][0]
+                        links = links + `${link} ${item.id}` + "\n"
+                        fs.writeFileSync('downloads.txt', links);
+
                         return console.log("good")
 
                     }
