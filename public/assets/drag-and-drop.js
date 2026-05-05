@@ -45,7 +45,7 @@ function readURL(input) {
                     );
                     $('#lat').val(lat);
                     $('#long').val(long);
-                    map.flyTo([lat, long], 18);
+                    map.setView([lat, long], 18);
                     marker = L.marker([lat, long]).addTo(map);
                     console.log(`lat: ${lat}, long: ${long}`);
                 });
